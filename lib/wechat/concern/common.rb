@@ -3,6 +3,7 @@ module Wechat
     module Common
       WXA_BASE    = 'https://api.weixin.qq.com/wxa/'.freeze
       API_BASE    = 'https://api.weixin.qq.com/cgi-bin/'.freeze
+      CARD_BASE   = 'https://api.weixin.qq.com/card/'.freeze
       OAUTH2_BASE = 'https://api.weixin.qq.com/sns/'.freeze
       DATACUBE_BASE = 'https://api.weixin.qq.com/datacube/'.freeze
 
@@ -10,6 +11,10 @@ module Wechat
         @client = HttpClient.new(API_BASE, timeout, skip_verify_ssl)
         @access_token = Token::PublicAccessToken.new(@client, appid, secret, token_file)
         @jsapi_ticket = Ticket::PublicJsapiTicket.new(@client, @access_token, jsapi_ticket_file)
+      end
+
+      def get_invoicebatch(item_list)
+        post 'invoice/reimburse/getinvoicebatch', JSON.generate(item_list: item_list)
       end
 
       def groups
