@@ -14,7 +14,7 @@ module Wechat
       end
 
       def get_invoicebatch(item_list)
-        post 'invoice/reimburse/getinvoicebatch', JSON.generate(item_list: item_list)
+        post 'invoice/reimburse/getinvoicebatch', JSON.generate(item_list: item_list), base: CARD_BASE
       end
 
       def groups
