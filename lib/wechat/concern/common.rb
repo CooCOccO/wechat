@@ -106,8 +106,8 @@ module Wechat
         post 'getwxacode', JSON.generate(path: path, width: width), base: WXA_BASE
       end
 
-      def wxa_qrcode_create_limit_scene(scene: , page: )
-        post 'getwxacodeunlimit', JSON.generate(scene: scene, page: page), base: WXA_BASE
+      def wxa_qrcode_create_limit_scene(scene: , page: ,opt: {})
+        post 'getwxacodeunlimit', JSON.generate(opt.merge({scene: scene, page: page}).compact), base: WXA_BASE
       end
 
       def wxa_create_qrcode(path, width = 430)
