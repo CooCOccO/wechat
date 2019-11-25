@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'wechat/api_base'
 require 'wechat/http_client'
 require 'wechat/token/public_access_token'
@@ -30,6 +32,10 @@ module Wechat
 
     def del_message_template(template_id)
       post 'wxopen/template/del', JSON.generate(template_id: template_id)
+    end
+
+    def subscribe_message_send(message)
+      post 'message/subscribe/send', message.to_json
     end
 
     def jscode2session(code)

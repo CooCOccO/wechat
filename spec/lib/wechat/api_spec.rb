@@ -201,9 +201,9 @@ RSpec.describe Wechat::Api do
 
   describe '#shorturl' do
     shorturl_result = { errcode: 0, errmsg: 'ok',
-                        short_url: 'http://w.url.cn/s/AvCo6Ih' }
+                        shorturl: 'http://w.url.cn/s/AvCo6Ih' }
 
-    specify 'will post short_url with access_token and long_url' do
+    specify 'will post shorturl with access_token and long_url' do
       long_url = 'http://wap.koudaitong.com/v2/showcase/goods?alias=128wi9shh&spm=h56083&redirect_count=1'
       shorturl_req = { action: 'long2short', long_url: long_url }
       expect(subject.client).to receive(:post)
@@ -295,6 +295,21 @@ RSpec.describe Wechat::Api do
         .with('getwxacode', JSON.generate(wxa_get_wxacode_req),
               params: { access_token: 'access_token' }, base: Wechat::Api::WXA_BASE).and_return(wxacode_result)
       expect(subject.wxa_get_wxacode(path)).to eq wxacode_result
+    end
+  end
+
+  describe '#wxa_get_wxacode_unlimit' do
+    wxacode_result = { errcode: 0, errmsg: 'ok',
+                       url: 'wxa_code_pic_url' }
+
+    specify 'will post wxa_get_wxacode_unlimit with scene, page, width and access_token' do
+      scene = 'query=1'
+      page = 'pages/index'
+      wxa_get_wxacode_unlimit_req = { scene: scene, page: page, width: 430 }
+      expect(subject.client).to receive(:post)
+        .with('getwxacodeunlimit', JSON.generate(wxa_get_wxacode_unlimit_req),
+              params: { access_token: 'access_token' }, base: Wechat::Api::WXA_BASE).and_return(wxacode_result)
+      expect(subject.wxa_get_wxacode_unlimit(scene, page)).to eq wxacode_result
     end
   end
 
@@ -779,6 +794,46 @@ RSpec.describe Wechat::Api do
               params: { access_token: 'access_token' }).and_return(response_result)
 
       expect(subject.clear_quota).to eq response_result
+    end
+  end
+
+  describe '#addvoicetorecofortext' do
+    specify 'will post media/voice/addvoicetorecofortext, file in body with access_token, format, voice_id and lang as params.' do
+      file = File.open('README.md')
+      response_result = {
+        errcode: 0,
+        errmsg: 'ok'
+      }
+
+      expect(subject.client).to receive(:post_file)
+        .with('media/voice/addvoicetorecofortext', file,
+          params: { access_token: 'access_token', format: 'mp3', voice_id: 'xxxxxx', lang: 'zh_CN' })
+        .and_return(response_result)
+      expect(subject.addvoicetorecofortext('xxxxxx', file)).to eq response_result
+    end
+  end
+
+  describe '#queryrecoresultfortext' do
+    specify 'will post media/voice/queryrecoresultfortext with access_token, voice_id and lang as params.' do
+      response_result = { result: "xxxxxxxxxxxxxxxxxx" }
+
+      expect(subject.client).to receive(:post)
+        .with('media/voice/queryrecoresultfortext', nil,
+          params: { access_token: 'access_token', voice_id: 'xxxxxx', lang: 'zh_CN' })
+        .and_return(response_result)
+      expect(subject.queryrecoresultfortext('xxxxxx')).to eq response_result
+    end
+  end
+
+  describe '#translatecontent' do
+    specify 'will post media/voice/translatecontent with access_token, lfrom and lto as params and content in body' do
+      response_result = { from_content: "xxxxxxxx", to_content: "xxxxxxxx" }
+
+      expect(subject.client).to receive(:post)
+        .with('media/voice/translatecontent', 'xxxxxxxx',
+          params: { access_token: 'access_token', lfrom: 'zh_CN', lto: 'en_US' })
+        .and_return(response_result)
+      expect(subject.translatecontent('xxxxxxxx')).to eq response_result
     end
   end
 end

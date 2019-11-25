@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'wechat/api_base'
 require 'wechat/http_client'
 require 'wechat/token/corp_access_token'
@@ -7,10 +9,8 @@ module Wechat
   class CorpApi < ApiBase
     attr_reader :agentid
 
-    API_BASE = 'https://qyapi.weixin.qq.com/cgi-bin/'.freeze
-
     def initialize(appid, secret, token_file, agentid, timeout, skip_verify_ssl, jsapi_ticket_file)
-      @client = HttpClient.new(API_BASE, timeout, skip_verify_ssl)
+      @client = HttpClient.new(QYAPI_BASE, timeout, skip_verify_ssl)
       @access_token = Token::CorpAccessToken.new(@client, appid, secret, token_file)
       @agentid = agentid
       @jsapi_ticket = Ticket::CorpJsapiTicket.new(@client, @access_token, jsapi_ticket_file)

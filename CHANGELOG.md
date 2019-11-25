@@ -1,5 +1,36 @@
 # Changelog
 
+## v0.11.7 (released at 11/15/2019)
+
+* ADD: Wechat::MpApi.subscribe_message_send. by @paicha #271
+* FIX: FrozenError: can't modify frozen String. by @paicha #272
+* New translatecontent support.
+
+## v0.11.6 (released at 09/02/2019)
+
+* Fix private method `next_migration_number` introduced at #267, by @zpdsky #270
+* Give more clear warning about missing Rails in console. by @emtfe #268
+
+## v0.11.5 (released at 08/30/2019)
+
+* Add rubocop check in CI by @hophacker #267
+* Support Rails 6 and Windows at #266
+
+## v0.11.4 (released at 08/15/2019)
+
+* rails 6 redirect_to use allow_other_host: true by @Chen-George-Zhen #263
+
+## v0.11.3 (released at 07/02/2019)
+
+* New addvoicetorecofortext and queryrecoresultfortext support.
+* improve existing class detect by @3014zhangshuo #261
+* new wxa_get_wxacode_unlimit API for miniapp by @paicha #260
+
+## v0.11.2 (released at 05/08/2019)
+
+* bugfix short_url to shorturl in wechat console tool by @yuanxinyu #259
+* allow a message to be sent to a party (department) by @hophacker #256
+
 ## v0.11.1 (released at 03/01/2019)
 
 * Let Message support markdown, text included; allow textcard btntxt to be omitted by @hophacker #251
@@ -144,7 +175,7 @@
 
 * Fix when access_token failed lead ticket can not refresh problem.
 * Default duration should be 1 hours instead of 0 seconds for wechat_oauth2.
-* New short_url allowing convert from long URL to short.
+* New shorturl allowing convert from long URL to short.
 
 ## v0.7.13 (released at 5/14/2016)
 
