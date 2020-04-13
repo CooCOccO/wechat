@@ -43,7 +43,7 @@ module Wechat
     private
 
     def ios?
-      controller.request.user_agent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
+      controller.request.user_agent&.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
     end
   end
 end
