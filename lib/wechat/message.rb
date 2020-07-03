@@ -243,6 +243,8 @@ module Wechat
       case json_hash['msgtype']
       when 'text'
         json_hash['text'] = { 'content' => json_hash.delete('content') }
+      when 'link'
+        json_hash['link'] = { 'link' => json_hash.delete('link') }
       when 'news'
         json_hash['news'] = { 'articles' => json_hash.delete('articles') }
       when 'mpnews'
