@@ -111,6 +111,10 @@ module Wechat
       update(MsgType: 'text', Content: content)
     end
 
+    def link(data)
+      update(MsgType: 'link', Link: data)
+    end
+
     def textcard(title, description, url, btntxt = nil)
       data = {
         title: title,
